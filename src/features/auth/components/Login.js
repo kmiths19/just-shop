@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   increment,
   incrementAsync,
-  selectCount,
 } from '../authSlice';
 import { Link } from 'react-router-dom';
 
-export default function Counter() {
-  const count = useSelector(selectCount);
+export default function Login() {
   const dispatch = useDispatch();
 
   return (
