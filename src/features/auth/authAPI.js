@@ -1,8 +1,35 @@
-export function fetchCount(amount = 1) {
+export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080");
-    const data = response.json();
+    const response = await fetch("http://localhost:8080/users/", {
+      method: 'POST',
+      headers: {'content-type':'application/json'},
+      body: JSON.stringify(userData) 
+    });
+    const data = await response.json();
     resolve({ data });
+  }
+  );
+}
+
+//Login 
+
+export function checkUser(loginInfo) {
+  return new Promise(async (resolve, reject) => {
+    const email = loginInfo.email;
+    const password = loginInfo.password;
+    const response = await fetch("http://localhost:8080/users?email=" + email);
+    const data = await response.json();
+    console.log("Login----", data)
+    if(data.length){
+      if(password === data[0].password){
+        resolve({ data: data[0] });
+      } else{
+        reject({message: "Please enter correct details"})
+      }
+    } else{
+      reject({message: "User not found"})
+    }
+    
   }
   );
 }
