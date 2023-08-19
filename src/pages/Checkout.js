@@ -6,17 +6,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteItemFromCartAsync, selectCart, updateCartAsync } from '../features/cart/cartSlice';
 import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice'
 import { useForm } from 'react-hook-form'
-import { createOrderAsync } from '../features/order/orderSlice';
+import { createOrderAsync, selectCurrentOrder } from '../features/order/orderSlice';
 
 const Checkout = () => {
     const [open, setOpen] = useState(true);
+    const [status, setStatus] = useState('pending')
     const dispatch = useDispatch();
+    const user = useSelector(selectLoggedInUser);
     const items = useSelector(selectCart);
-    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+    const currentOrder = useSelector(selectCurrentOrder)
     const totalAmount = items.reduce((amount, item) => item.price * item.quantity + amount, 0);
     const totalItemsCount = items.reduce((total, item) => item.quantity + total, 0);
 
-    const user = useSelector(selectLoggedInUser);
+
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState('cash');
 
@@ -32,19 +35,37 @@ const Checkout = () => {
         setSelectedAddress(user.addresses[e.target.value])
     }
 
-    const handlePayment = (e) =>{
+    const handlePayment = (e) => {
         setPaymentMethod(e.target.value)
     }
 
-    const handleOrder = (e)=>{
-        const order = {items, totalAmount, totalItemsCount, user, paymentMethod, selectedAddress}
-        dispatch(createOrderAsync(order))
-    }
+    const handleOrder = (e) => {
+        if (selectedAddress && paymentMethod) {
+            const order = {
+                items,
+                totalAmount,
+                totalItemsCount,
+                user,
+                paymentMethod,
+                selectedAddress,
+                status: 'pending' // other status can be delivered, received.
+            };
+            dispatch(createOrderAsync(order));
+            // need to redirect from here to a new page of order success.
+        } else {
+            // TODO : we can use proper messaging popup here
+            alert('Enter Address and Payment method')
+        }
+        //TODO : Redirect to order-success page
+        //TODO : clear cart after order
+        //TODO : on server change the stock number of items
+    };
 
 
     return (
         <>
             {!items.length && <Navigate to='/' replace={true}></Navigate>}
+            {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
                     <div className='lg:col-span-3'>
@@ -70,6 +91,9 @@ const Checkout = () => {
                                                     autoComplete="given-name"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.firstName && (
+                                                    <p className="text-red-500">{errors.firstName.message}</p>
+                                                )}
                                             </div>
                                         </div>
 
@@ -85,6 +109,9 @@ const Checkout = () => {
                                                     autoComplete="family-name"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.lastName && (
+                                                    <p className="text-red-500">{errors.lastName.message}</p>
+                                                )}
                                             </div>
                                         </div>
 
@@ -100,6 +127,9 @@ const Checkout = () => {
                                                     autoComplete="email"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.email && (
+                                                    <p className="text-red-500">{errors.email.message}</p>
+                                                )}
                                             </div>
                                         </div>
 
@@ -115,6 +145,9 @@ const Checkout = () => {
                                                     autoComplete="tel"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.phone && (
+                                                    <p className="text-red-500">{errors.phone.message}</p>
+                                                )}
                                             </div>
                                         </div>
 
@@ -130,6 +163,11 @@ const Checkout = () => {
                                                     autoComplete="streetAddress"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.streetAddress && (
+                                                    <p className="text-red-500">
+                                                        {errors.streetAddress.message}
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
 
@@ -149,6 +187,9 @@ const Checkout = () => {
                                                     <option>Mexico</option>
                                                 </select>
                                             </div>
+                                            {errors.country && (
+                                                <p className="text-red-500">{errors.country.message}</p>
+                                            )}
                                         </div>
 
                                         <div className="sm:col-span-3">
@@ -163,6 +204,9 @@ const Checkout = () => {
                                                     autoComplete="address-level2"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.city && (
+                                                    <p className="text-red-500">{errors.city.message}</p>
+                                                )}
                                             </div>
                                         </div>
 
@@ -178,6 +222,9 @@ const Checkout = () => {
                                                     autoComplete="address-level1"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.region && (
+                                                    <p className="text-red-500">{errors.region.message}</p>
+                                                )}
                                             </div>
                                         </div>
 
@@ -193,6 +240,11 @@ const Checkout = () => {
                                                     autoComplete="postal-code"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
+                                                {errors.pinCode && (
+                                                    <p className="text-red-500">
+                                                        {errors.pinCode.message}
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -346,7 +398,7 @@ const Checkout = () => {
                                     <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                     <div className="mt-6">
                                         <div
-                                        onClick={handleOrder}
+                                            onClick={handleOrder}
                                             className="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                         >
                                             Order Now
