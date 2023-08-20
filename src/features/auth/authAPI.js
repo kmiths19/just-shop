@@ -32,17 +32,4 @@ export function checkUser(loginInfo) {
     
   }
   );
-}
-
-export function updateUser(update) {
-  return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/users/" + update.id, {
-      method: 'PATCH',
-      headers: {'content-type':'application/json'},
-      body: JSON.stringify(update) 
-    });
-    const data = await response.json();
-    resolve({ data });
-  }
-  );
 } 

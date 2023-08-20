@@ -4,15 +4,16 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteItemFromCartAsync, selectCart, updateCartAsync } from '../features/cart/cartSlice';
-import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice'
+import { updateUserAsync } from '../features/auth/authSlice'
 import { useForm } from 'react-hook-form'
 import { createOrderAsync, selectCurrentOrder } from '../features/order/orderSlice';
+import { selectUserInfo } from '../features/user/userSlice';
 
 const Checkout = () => {
     const [open, setOpen] = useState(true);
     const [status, setStatus] = useState('pending')
     const dispatch = useDispatch();
-    const user = useSelector(selectLoggedInUser);
+    const user = useSelector(selectUserInfo);
     const items = useSelector(selectCart);
     const currentOrder = useSelector(selectCurrentOrder)
     const totalAmount = items.reduce((amount, item) => item.price * item.quantity + amount, 0);
@@ -427,6 +428,6 @@ const Checkout = () => {
             </div>
         </>
     )
-}
+} 
 
 export default Checkout
