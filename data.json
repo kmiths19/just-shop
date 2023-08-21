@@ -1838,6 +1838,23 @@
         "https://i.dummyjson.com/data/products/100/3.jpg",
         "https://i.dummyjson.com/data/products/100/thumbnail.jpg"
       ]
+    },
+    {
+      "title": "iPhone 16",
+      "description": "Not launched yet",
+      "brand": "Apple",
+      "category": "smartphones",
+      "price": "1599",
+      "discountPercentage": "10",
+      "stock": "15",
+      "thumbnail": "https://media.istockphoto.com/id/1371695315/photo/iphone-13-pro-sierra-blue.jpg?s=612x612&w=0&k=20&c=-0Mr9DdIRHFoLUozdltlHdkum0ChCNTGfLhxc-3oHmI=",
+      "images": [
+        "https://images.unsplash.com/photo-1606041011872-596597976b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjBpcGhvbmV8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+        "https://images.unsplash.com/photo-1606041011872-596597976b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjBpcGhvbmV8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+        "https://images.unsplash.com/photo-1606041011872-596597976b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjBpcGhvbmV8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+        "https://media.istockphoto.com/id/1371695315/photo/iphone-13-pro-sierra-blue.jpg?s=612x612&w=0&k=20&c=-0Mr9DdIRHFoLUozdltlHdkum0ChCNTGfLhxc-3oHmI="
+      ],
+      "id": 101
     }
   ],
   "brands": [
@@ -2338,6 +2355,7 @@
     {
       "email": "k.miths19@live.com",
       "password": "System@123",
+      "role": "admin",
       "addresses": [
         {
           "firstName": "Smita",
@@ -2356,6 +2374,7 @@
     {
       "email": "abc@text.com",
       "password": "System@123",
+      "role": "user",
       "addresses": [],
       "id": 2
     }
@@ -2381,6 +2400,47 @@
       "quantity": 1,
       "user": 2,
       "id": 1
+    },
+    {
+      "title": "MacBook Pro",
+      "description": "MacBook Pro 2021 with mini-LED display may launch between September, November",
+      "price": 1749,
+      "discountPercentage": 11.02,
+      "rating": 4.57,
+      "stock": 83,
+      "brand": "Apple",
+      "category": "laptops",
+      "thumbnail": "https://i.dummyjson.com/data/products/6/thumbnail.png",
+      "images": [
+        "https://i.dummyjson.com/data/products/6/1.png",
+        "https://i.dummyjson.com/data/products/6/2.jpg",
+        "https://i.dummyjson.com/data/products/6/3.png",
+        "https://i.dummyjson.com/data/products/6/4.jpg"
+      ],
+      "quantity": 1,
+      "user": 2,
+      "id": 2
+    },
+    {
+      "title": "Microsoft Surface Laptop 4",
+      "description": "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
+      "price": 1499,
+      "discountPercentage": 10.23,
+      "rating": 4.43,
+      "stock": 68,
+      "brand": "Microsoft Surface",
+      "category": "laptops",
+      "thumbnail": "https://i.dummyjson.com/data/products/8/thumbnail.jpg",
+      "images": [
+        "https://i.dummyjson.com/data/products/8/1.jpg",
+        "https://i.dummyjson.com/data/products/8/2.jpg",
+        "https://i.dummyjson.com/data/products/8/3.jpg",
+        "https://i.dummyjson.com/data/products/8/4.jpg",
+        "https://i.dummyjson.com/data/products/8/thumbnail.jpg"
+      ],
+      "quantity": 1,
+      "user": 2,
+      "id": 3
     }
   ],
   "orders": [
@@ -2716,6 +2776,65 @@
       },
       "status": "pending",
       "id": 5
+    },
+    {
+      "items": [
+        {
+          "title": "iPhone X",
+          "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+          "price": 899,
+          "discountPercentage": 17.94,
+          "rating": 4.44,
+          "stock": 34,
+          "brand": "Apple",
+          "category": "smartphones",
+          "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/2/1.jpg",
+            "https://i.dummyjson.com/data/products/2/2.jpg",
+            "https://i.dummyjson.com/data/products/2/3.jpg",
+            "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+          ],
+          "quantity": 1,
+          "user": 1,
+          "id": 4
+        }
+      ],
+      "totalAmount": 899,
+      "totalItemsCount": 1,
+      "user": {
+        "email": "k.miths19@live.com",
+        "password": "System@123",
+        "role": "admin",
+        "addresses": [
+          {
+            "firstName": "Smita",
+            "lastName": "Kumari",
+            "email": "sm@gmail.com",
+            "phone": "8769879870",
+            "streetAddress": "No. 2B, 19",
+            "country": "Canada",
+            "city": "Kansas",
+            "region": "New Hollywood",
+            "pinCode": "95781"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "firstName": "Smita",
+        "lastName": "Kumari",
+        "email": "sm@gmail.com",
+        "phone": "8769879870",
+        "streetAddress": "No. 2B, 19",
+        "country": "Canada",
+        "city": "Kansas",
+        "region": "New Hollywood",
+        "pinCode": "95781"
+      },
+      "status": "pending",
+      "id": 6
     }
   ]
 }

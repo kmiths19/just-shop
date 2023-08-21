@@ -4,16 +4,12 @@ import { Bars3Icon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outli
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCart } from '../cart/cartSlice';
+import {selectLoggedInUser} from '../auth/authSlice'
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 const navigation = [
-  { name: 'Just Shop', href: '/', current: true },
-  { name: 'Register', href: '/register', current: false }
+  { name: 'Just Shop', link: '/', user: true },
+  { name: 'Register', link: '/register', user: true },
+  { name: 'Admin', link: '/admin', admin: true }
 ]
 const userNavigation = [
   { name: 'My Profile', link: '/my-profile' },
@@ -26,7 +22,9 @@ function classNames(...classes) {
 }
 
 export default function NavBar({ children }) {
-  const items = useSelector(selectCart)
+  const items = useSelector(selectCart);
+
+  const user = useSelector(selectLoggedInUser)
   return (
     <>
       <div className="min-h-full">
@@ -48,19 +46,19 @@ export default function NavBar({ children }) {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
+                          (item[user.role] ? <Link
                             key={item.name}
-                            href={item.href}
+                            to={item.link}
                             className={classNames(
                               item.current
                                 ? 'bg-gray-900 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-white hover:cursor-pointer',
                               'rounded-md px-3 py-2 text-sm font-medium'
                             )}
                             aria-current={item.current ? 'page' : undefined}
                           >
                             {item.name}
-                          </a>
+                          </Link>: null)
                         ))}
                       </div>
                     </div>

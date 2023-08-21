@@ -47,6 +47,7 @@ export default function UserProfile() {
       <div className="border-t  border-gray-100 px-4 py-0 sm:px-6">
         <h1 className="text-xl my-5 font-bold tracking-tight text-gray-900">Hello! {user.firstName ? user.firstName : "Guest"}</h1>
         <h1 className="text-base my-5 font-bold tracking-tight text-purple-900">Email address: {user.email}</h1>
+        {user.role === 'admin' && <h1 className="text-base my-5 font-bold tracking-tight text-purple-900">Role: {user.role}</h1>}
         <div className="flow-root">
         </div>
         <div className="border-t border-gray-200 px-4 py-2 sm:px-6">
@@ -237,8 +238,8 @@ export default function UserProfile() {
                 </div>
               </div>
               <div className="mt-6 flex items-center justify-end gap-x-6">
-              <button
-              onClick={() => { setShowAddAddressForm(false) }}
+                <button
+                  onClick={() => { setShowAddAddressForm(false) }}
                   type="submit"
                   className="rounded-md  px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                 >

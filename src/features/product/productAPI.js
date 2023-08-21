@@ -16,6 +16,19 @@ export function fetchProductById(id) {
   );
 }
 
+export function createProduct(product) {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/products/", {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(product)
+    });
+    const data = await response.json();
+    resolve({ data });
+  }
+  );
+}
+
 export function fetchProductsByFilters(filter, sort, pagination) {
   let queryString = '';
   for (let key in filter) {
