@@ -4,9 +4,9 @@
       "id": 1,
       "title": "iPhone 9",
       "description": "An apple mobile which is nothing like apple",
-      "price": 549,
+      "price": 999,
       "discountPercentage": 12.96,
-      "rating": 4.69,
+      "rating": 0,
       "stock": 94,
       "brand": "Apple",
       "category": "smartphones",
@@ -15,7 +15,6 @@
         "https://i.dummyjson.com/data/products/1/1.jpg",
         "https://i.dummyjson.com/data/products/1/2.jpg",
         "https://i.dummyjson.com/data/products/1/3.jpg",
-        "https://i.dummyjson.com/data/products/1/4.jpg",
         "https://i.dummyjson.com/data/products/1/thumbnail.jpg"
       ]
     },
@@ -1855,6 +1854,41 @@
         "https://media.istockphoto.com/id/1371695315/photo/iphone-13-pro-sierra-blue.jpg?s=612x612&w=0&k=20&c=-0Mr9DdIRHFoLUozdltlHdkum0ChCNTGfLhxc-3oHmI="
       ],
       "id": 101
+    },
+    {
+      "title": "iPhone 9111",
+      "description": "An apple mobile which is nothing like apple11111",
+      "brand": "Apple",
+      "category": "smartphones",
+      "price": "1189",
+      "discountPercentage": "13",
+      "stock": 94,
+      "thumbnail": "https://images.moneycontrol.com/static-mcnews/2021/10/Apple-iPhone-13-4-770x433.jpg?impolicy=website&width=770&height=431",
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM4_TkIo-AhouGOb5GEBSn9dsWeBF08isknTCz93YBow&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM4_TkIo-AhouGOb5GEBSn9dsWeBF08isknTCz93YBow&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM4_TkIo-AhouGOb5GEBSn9dsWeBF08isknTCz93YBow&s",
+        "https://images.moneycontrol.com/static-mcnews/2021/10/Apple-iPhone-13-4-770x433.jpg?impolicy=website&width=770&height=431"
+      ],
+      "id": 102
+    },
+    {
+      "title": "iPhone X",
+      "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+      "brand": "Apple",
+      "category": "smartphones",
+      "price": 899,
+      "discountPercentage": 17.94,
+      "stock": 34,
+      "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+      "rating": 0,
+      "images": [
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
+        "https://i.dummyjson.com/data/products/2/thumbnail.jpg"
+      ],
+      "id": 103
     }
   ],
   "brands": [

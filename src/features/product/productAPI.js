@@ -29,6 +29,19 @@ export function createProduct(product) {
   );
 }
 
+export function updateProduct(update) {
+  return new Promise(async (resolve) => {
+    const response = await fetch("http://localhost:8080/products/" + update.id, {
+      method: 'PATCH',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(update)
+    });
+    const data = await response.json();
+    resolve({ data });
+  }
+  );
+}
+
 export function fetchProductsByFilters(filter, sort, pagination) {
   let queryString = '';
   for (let key in filter) {
