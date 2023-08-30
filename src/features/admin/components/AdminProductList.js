@@ -14,7 +14,7 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon, ChevronLeftIcon, ChevronRightIcon, StarIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom';
-import { ITEMS_PER_PAGE } from '../../../app/constants';
+import { ITEMS_PER_PAGE, discountedPrice } from '../../../app/constants';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -437,10 +437,13 @@ function ProductGrid({ products }) {
                           <span className='align-bottom'>{product.rating}</span></p>
                       </div>
                       <div>
-                        <p className="text-sm block font-medium text-gray-900"><sup>$</sup>{Math.round(product.price * (1 - product.discountPercentage / 100))}</p>
+                        <p className="text-sm block font-medium text-gray-900"><sup>$</sup>{discountedPrice(product)}</p>
                         <p className="text-sm block font-medium line-through text-red-500 px-2"><sup>$</sup>{product.price}</p>
                       </div>
                     </div>
+                    {product.deleted && <div>
+                      <p className='text-sm text-red-400'>Product deleted</p>
+                    </div>}
                   </div>
                 </Link>
                 <div>

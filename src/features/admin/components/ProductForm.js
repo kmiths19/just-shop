@@ -1,6 +1,6 @@
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { useDispatch, useSelector } from 'react-redux';
-import { createProductAsync, fetchProductByIdAsync, selectBrands, selectCategories, selectProductById, updateProductAsync } from '../../product/productSlice';
+import { clearSelectedProduct, createProductAsync, fetchProductByIdAsync, selectBrands, selectCategories, selectProductById, updateProductAsync } from '../../product/productSlice';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 function ProductForm() {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
   const dispatch = useDispatch();
   const params = useParams();
   const selectedProduct = useSelector(selectProductById)
@@ -16,11 +16,13 @@ function ProductForm() {
   useEffect(() => {
     if (params.id) {
       dispatch(fetchProductByIdAsync(params.id))
+    } else {
+      dispatch(clearSelectedProduct());
     }
   }, [params.id, dispatch])
 
   useEffect(() => {
-    if (selectedProduct) {
+    if (selectedProduct && params.id) {
       setValue('title', selectedProduct.title)
       setValue('description', selectedProduct.description)
       setValue('brand', selectedProduct.brand)
@@ -33,14 +35,20 @@ function ProductForm() {
       setValue('image2', selectedProduct.images[1])
       setValue('image3', selectedProduct.images[2])
     }
-  }, [selectedProduct, setValue])
+  }, [selectedProduct, params.id, setValue])
+
+  const handleDelete = ()=>{
+    const product = {...selectedProduct};
+    product.deleted = true;
+    dispatch(updateProductAsync(product));
+  }
 
   return (
     <>
       <form noValidate onSubmit={handleSubmit((data) => {
         const product = { ...data };
         product.images = [product.image1, product.image2, product.image3, product.thumbnail];
-        product.rating = product.rating || 0;
+        product.rating = 0;
         delete product['image1'];
         delete product['image2'];
         delete product['image3'];
@@ -49,9 +57,12 @@ function ProductForm() {
         product.stock = +product.stock;
         if(params.id){
           product.id = params.id;
+        product.rating = selectedProduct.rating || 0;
           dispatch(updateProductAsync(product))
+          reset();
         } else {
           dispatch(createProductAsync(product))
+          reset();
         }
       })}>
         <div className="space-y-12 bg-white p-12">
@@ -337,6 +348,12 @@ function ProductForm() {
           <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
             Cancel
           </button>
+          {selectedProduct && <button
+            onClick={handleDelete}
+            className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+          >
+            Delete
+          </button>}
           <button
             type="submit"
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
