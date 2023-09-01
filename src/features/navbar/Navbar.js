@@ -7,9 +7,8 @@ import { selectCart } from '../cart/cartSlice';
 import {selectLoggedInUser} from '../auth/authSlice'
 
 const navigation = [
-  { name: 'Just Shop', link: '/', user: true },
-  { name: 'Register', link: '/register', user: true },
-  { name: 'Admin', link: '/admin', admin: true },
+  { name: 'Products', link: '/', user: true },
+  { name: 'Products', link: '/admin', admin: true },
   { name: 'Orders', link: '/admin/orders', admin: true }
 ]
 const userNavigation = [

@@ -10,7 +10,7 @@ function UserOrders() {
 
     useEffect(() => {
         dispatch(fetchLoggedInUserOrdersAsync(user.id))
-    }, [dispatch])
+    }, [dispatch, user])
     return (
         <>
             {orders.map((order) => (
